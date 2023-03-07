@@ -14,7 +14,7 @@ class MongoDBClient:
     def ping(self):
         return False
     
-    def connect(self, database):
+    def getDatabase(self, database):
         self.database = self.client[database]
         return self.database
 
@@ -22,7 +22,7 @@ class MongoDBClient:
         self.collection = self.database[collection]
         return self.collection
     
-    def clearAll(self):
-        self.client.drop_database(self.database)
+    def clearDb(self,database):
+        self.client.drop_database(database)
 
 
