@@ -52,6 +52,10 @@ services:
     container_name: mongodb
     ports:
       - 27017:27017
+    volumes:
+      - mongo_data:/var/lib/mongodb/data/db
+    networks:
+      - app_network
 
 
 volumes:
