@@ -107,9 +107,9 @@ Tal i com vem fer a la setmana passada, hem creat una sèrie de tests per a comp
 docker exec bdda_api sh -c "pytest"
 ```
 
-També pots comprovar els tests a l'autograding de github, aquesta setmana la puntuació màxima és de 100 punts i hi ha un total de `17` tests amb un valor de `1` punts cadascun:
+També pots comprovar els tests a l'autograding de github, aquesta setmana la puntuació màxima és de 150 punts i hi ha un total de `15` tests amb un valor de `10` punts cadascun:
 
-Veuràs que tots els tests fallen. Això és normal, ja que encara no hem implementat el codi que passa els tests.
+Veuràs que 15 tests fallen i 2, els pings, funcionen. Això és normal, ja que encara no hem implementat el codi que passa els tests.
 
 ### Punt 2: Mirar els endpoints al fitxer controller.py:
 
@@ -225,7 +225,7 @@ git push
 
 Aquesta pràctica té una puntuació màxima de 10 punts. La puntuació es repartirà de la següent manera:
 
-- 6 punts: Correcta execució dels tests. Important, per a que la pràctica sigui avaluable heu d'aconseguir que com a mínim `n` dels `X` tests s'executin correctament.
+- 6 punts: Correcta execució dels tests. Important, per a que la pràctica sigui avaluable heu d'aconseguir que com a mínim `12` dels `15` tests s'executin correctament.
 - 2 punts: L'estil del codi i la seva estructura i documentació.
 - 2 punts: La correcta implementació de la funcionalitat.
 
