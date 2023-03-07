@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from typing import List, Optional
 
-from . import models, schemas, last_data
+from . import models, schemas
 
 def get_sensor(db: Session, sensor_id: int) -> Optional[models.Sensor]:
     return db.query(models.Sensor).filter(models.Sensor.id == sensor_id).first()

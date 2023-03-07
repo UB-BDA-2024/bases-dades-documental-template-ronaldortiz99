@@ -62,7 +62,7 @@ def create_sensor(sensor: schemas.SensorCreate, db: Session = Depends(get_db), m
 
 # 🙋🏽‍♀️ Add here the route to delete a sensor
 @router.delete("/{sensor_id}")
-def delete_sensor(sensor_id: int, db: Session = Depends(get_db), mongodb_client: MongoDBClient = Depends(get_mongodb_client))):
+def delete_sensor(sensor_id: int, db: Session = Depends(get_db), mongodb_client: MongoDBClient = Depends(get_mongodb_client)):
     db_sensor = repository.get_sensor(db, sensor_id)
     if db_sensor is None:
         raise HTTPException(status_code=404, detail="Sensor not found")
