@@ -14,8 +14,12 @@ def clear_dbs():
      from app.sensors import models
      models.Base.metadata.drop_all(bind=engine)
      models.Base.metadata.create_all(bind=engine)
-     RedisClient(host="redis").clearAll()
-     MongoDBClient(host="mongodb://mongodb").clearDb("sensors")
+     redis = RedisClient(host="redis")
+     redis.clearAll()
+     redis.close()
+     mongo = MongoDBClient(host="mongodb")
+     mongo.clearDb("sensors")
+     mongo.close()
 
 def test_create_sensor_temperatura():
      """A sensor can be properly created"""

@@ -12,7 +12,7 @@ class MongoDBClient:
         self.client.close()
     
     def ping(self):
-        return False
+        return self.client.db_name.command('ping')
     
     def getDatabase(self, database):
         self.database = self.client[database]
