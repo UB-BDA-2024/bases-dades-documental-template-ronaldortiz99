@@ -84,6 +84,6 @@ def get_data(sensor_id: int, data: schemas.SensorData, db: Session = Depends(get
 
 # 🙋🏽‍♀️ Add here the route to get a list of sensors near to a given location
 @router.get("/near")
-def get_sensors_near(latitude: float, longitude: float, db: Session = Depends(get_db),mongodb_client: MongoDBClient = Depends(get_mongodb_client)):
+def get_sensors_near(latitude: float, longitude: float, radi:float ,db: Session = Depends(get_db),mongodb_client: MongoDBClient = Depends(get_mongodb_client)):
     raise HTTPException(status_code=404, detail="Not implemented")
     #return repository.get_sensors_near(mongodb=mongodb_client, latitude=latitude, longitude=longitude)

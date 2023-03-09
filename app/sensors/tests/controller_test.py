@@ -101,8 +101,8 @@ def test_get_sensor_1_data_updated():
     response = client.get("/sensors/1/data")
     assert response.status_code == 200
     json = response.json()
-    assert json["id"] == 2
-    assert json["name"] == "Sensor Velocitat 1"
+    assert json["id"] == 1
+    assert json["name"] == "Sensor Temperatura 1"
     assert json["temperature"] == 2.0
     assert json["humidity"] == 2.0
     assert json["battery_level"] == 1.9
