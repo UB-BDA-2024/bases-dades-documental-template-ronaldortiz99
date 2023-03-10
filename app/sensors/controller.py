@@ -38,18 +38,19 @@ router = APIRouter(
     tags=["sensors"],
 )
 
+
+# 🙋🏽‍♀️ Add here the route to get a list of sensors near to a given location
+@router.get("/near")
+def get_sensors_near(latitude: float, longitude: float, db: Session = Depends(get_db),mongodb_client: MongoDBClient = Depends(get_mongodb_client)):
+    raise HTTPException(status_code=404, detail="Not implemented")
+    #return repository.get_sensors_near(mongodb=mongodb_client, latitude=latitude, longitude=longitude)
+
+
 # 🙋🏽‍♀️ Add here the route to get all sensors
 @router.get("")
 def get_sensors(db: Session = Depends(get_db)):
     return repository.get_sensors(db)
 
-# 🙋🏽‍♀️ Add here the route to get a sensor by id
-@router.get("/{sensor_id}")
-def get_sensor(sensor_id: int, db: Session = Depends(get_db), mongodb_client: MongoDBClient = Depends(get_mongodb_client)):
-    db_sensor = repository.get_sensor(db, sensor_id)
-    if db_sensor is None:
-        raise HTTPException(status_code=404, detail="Sensor not found")
-    return db_sensor
 
 # 🙋🏽‍♀️ Add here the route to create a sensor
 @router.post("")
@@ -59,6 +60,14 @@ def create_sensor(sensor: schemas.SensorCreate, db: Session = Depends(get_db), m
         raise HTTPException(status_code=400, detail="Sensor with same name already registered")
     raise HTTPException(status_code=404, detail="Not implemented")
 #    return repository.create_sensor(db=db, sensor=sensor)
+
+# 🙋🏽‍♀️ Add here the route to get a sensor by id
+@router.get("/{sensor_id}")
+def get_sensor(sensor_id: int, db: Session = Depends(get_db), mongodb_client: MongoDBClient = Depends(get_mongodb_client)):
+    db_sensor = repository.get_sensor(db, sensor_id)
+    if db_sensor is None:
+        raise HTTPException(status_code=404, detail="Sensor not found")
+    return db_sensor
 
 # 🙋🏽‍♀️ Add here the route to delete a sensor
 @router.delete("/{sensor_id}")
@@ -81,9 +90,3 @@ def record_data(sensor_id: int, data: schemas.SensorData,db: Session = Depends(g
 def get_data(sensor_id: int, data: schemas.SensorData, db: Session = Depends(get_db) ,redis_client: RedisClient = Depends(get_redis_client)):    
     raise HTTPException(status_code=404, detail="Not implemented")
     #return repository.get_data(redis=redis_client, sensor_id=sensor_id, data=data)
-
-# 🙋🏽‍♀️ Add here the route to get a list of sensors near to a given location
-@router.get("/near")
-def get_sensors_near(latitude: float, longitude: float, db: Session = Depends(get_db),mongodb_client: MongoDBClient = Depends(get_mongodb_client)):
-    raise HTTPException(status_code=404, detail="Not implemented")
-    #return repository.get_sensors_near(mongodb=mongodb_client, latitude=latitude, longitude=longitude)
