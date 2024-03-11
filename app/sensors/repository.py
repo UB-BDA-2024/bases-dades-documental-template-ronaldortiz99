@@ -98,7 +98,6 @@ def convertToLastData(value):
 
 def add_collection(mongodb_client: MongoDBClient,sensor: schemas.SensorCreate) :
     mycol = mongodb_client.getCollection(collection='sensors_col')
-    print(mycol)
     sensor = {'name': sensor.name,
               'type': sensor.type, 
               'longitude': sensor.longitude,
