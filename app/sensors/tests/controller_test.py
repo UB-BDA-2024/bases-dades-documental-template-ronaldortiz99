@@ -37,7 +37,6 @@ def test_create_sensor_velocitat():
     assert json["id"] == 2
     assert json["name"] == "Sensor Velocitat 1"
 
-
 def test_redis_connection():
     redis_client = RedisClient(host="redis")
     assert redis_client.ping()
@@ -120,7 +119,8 @@ def test_get_sensor_2_data_updated():
     assert json["velocity"] == 46.0
     assert json["battery_level"] == 1.9
     assert json["last_seen"] == "2020-01-01T00:00:01.000Z"
-
+    
+    
 def test_get_near():
     response = client.get("/sensors/near?latitude=1.0&longitude=1.0&radius=1")
     assert response.status_code == 200
@@ -144,5 +144,4 @@ def test_delete_sensor_1():
 def test_delete_sensor_2():
     response = client.delete("/sensors/2")
     assert response.status_code == 200
-
 
