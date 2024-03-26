@@ -98,10 +98,13 @@ def convertToLastData(value):
 
 def add_collection(mongodb_client: MongoDBClient,sensor: schemas.SensorCreate) :
     mycol = mongodb_client.getCollection(collection='sensors_col')
+    mycol.create_index([("location", "2dsphere")])
     sensor = {'name': sensor.name,
               'type': sensor.type, 
-              'longitude': sensor.longitude,
-              'latitude': sensor.latitude,
+              'location': {
+                    'type': "Point",
+                    'coordinates': [sensor.longitude, sensor.latitude]
+                },
               'mac_address': sensor.mac_address,
               'manufacturer': sensor.manufacturer,
               'model': sensor.model,
@@ -115,8 +118,8 @@ def get_sensor_collection_by_name(name: str,mongodb_client: MongoDBClient) -> sc
     
     return schemas.SensorCreate(name=name,
                                       type=col_sensor['type'],
-                                      longitude=col_sensor['longitude'],
-                                      latitude=col_sensor['latitude'],
+                                      longitude=col_sensor['location']['coordinates'][0],
+                                      latitude=col_sensor['location']['coordinates'][1],
                                       mac_address=col_sensor['mac_address'],
                                       manufacturer=col_sensor['manufacturer'],
                                       model=col_sensor['model'],
@@ -130,13 +133,14 @@ def delete_sensor_collection_by_name(name: str,mongodb_client: MongoDBClient):
 def get_sensors_near(db: Session, mongodb_client: MongoDBClient, redis: Session, latitude: float, longitude: float, radius: float):
     mycol = mongodb_client.getCollection(collection='sensors_col')
     query = mycol.find({
-        'latitude': {
-            '$lte': latitude + radius,
-            '$gte': latitude - radius
-        },
-        'longitude': {
-            '$lte': longitude + radius,
-            '$gte': longitude - radius
+        "location": {
+            "$near": {
+                "$geometry": {
+                    "type": "Point",
+                    "coordinates": [longitude,latitude]
+                },
+                "$maxDistance": radius  
+            }
         }
     })
     query_data = []
